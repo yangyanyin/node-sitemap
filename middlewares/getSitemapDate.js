@@ -1,5 +1,5 @@
 const serverAPI = require('../api/serverApi')
-const createXml = require('../configs/createXml')
+const createXml = require('../controllers/createXml')
 const requestParams = require('../configs/requestParams')
 module.exports = (req, res, next) => {
   return new Promise((resolve) => {
