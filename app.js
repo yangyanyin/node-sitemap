@@ -1,10 +1,6 @@
 // const express = require('express')
 // const app = express()
-
-// const blogSitemap = require('./middlewares/blogSitemap')
-// const productSitemap = require('./middlewares/productSitemap')
 const getSitemapDate = require('./middlewares/getSitemapDate')
-// getSitemapDate()
 getSitemapDate().then(() => {
   console.warn('站点地图创建成功，退出改程序!!!')
   process.exit()
