@@ -1,18 +1,19 @@
 const mysql= require("mysql"); 
 const pool = mysql.createPool({  
-  host: 'localhost',
+  host: '127.0.0.1',
   user: 'root',
-  password: 'yang1187756010',
+  password: 'MyPass@123',
+  port: "3306",
   database: 'yyy'
 })
 
-module.exports = (sql, options, callback) => {
+module.exports = (sql, callback) => {
   pool.getConnection((err, connection) => {
     if (err) {  
-      callback(err, null, null)
+      console.log(err)
       return
-    } else {  
-      connection.query(sql, options, function(err, results, fields) {
+    } else {
+      connection.query(sql, function(err, results, fields) {
         if (err) {
           console.log('[SELECT ERROR] - ', err.message)
 				  return
@@ -20,7 +21,7 @@ module.exports = (sql, options, callback) => {
         //释放连接  
         connection.release()
         //事件驱动回调  
-        // callback(err, results, fields)
+        callback(results, fields)
       })
     }
   })

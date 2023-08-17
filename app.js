@@ -1,20 +1,35 @@
-// const express = require('express')
-// const app = express()
-const getSitemapDate = require('./middlewares/getSitemapDate')
-getSitemapDate().then(() => {
-  console.warn('站点地图创建成功，退出改程序!!!')
-  process.exit()
+const createXml = require('./controllers/createXml')
+const sqlRequest = require('./controllers/sqlRequest')
+
+// 创建商品站点地图
+const createProduct = new Promise((resolve) => {
+  sqlRequest.productList().then(results => {
+    const data = results.data
+    createXml(data, 'product', 'https://{site}.patpat.com/{lang}/product/{pageUrl}.html', 'url').then(() => {
+      resolve('商品站点地图创建完成')
+    })
+  })
 })
 
+// 创建分类站点地图
+const createCategory = new Promise((resolve) => {
+  sqlRequest.category().then(results => {
+    const data = results.data
+    createXml(data, 'category', 'https://{site}.patpat.com/{lang}/{pageUrl}.html', 'url').then(() => {
+      resolve('分类站点地图创建完成')
+    })
+  })
+})
 
-// app.get('/', (req, res) => {
-//   res.json({
-//     code: '200',
-//     status: 'Success'
-//   });
-//   process.exit()
-// });
+// 检查是否创建完所有的站点地图
+const createCount = [createProduct, createCategory]
+Promise.all(createCount).then((values) => {
+  values.map(item => {
+  console.log(`tips: ${item}`)
 
-
-// const port = 8888
-// app.listen(8888, () => console.info(`\x1b[42;30m 服务启动成功:\x1b[0;32m \x1b[4mhttp://localhost:${port}\x1b[0m`))
+  })
+  // 创建完退出程序
+  if (values.length === createCount.length) {
+    process.exit()
+  }
+})

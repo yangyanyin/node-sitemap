@@ -35,7 +35,7 @@ module.exports = (dataList, fileName, url, urlKey) => {
         const xml = root.end({ prettyPrint: true })
         const sitemapFilePath = `./output/${fileName}-${site.site}-${i+1}.xml`;
         fs.writeFileSync(sitemapFilePath, xml, 'utf-8')
-        resolve(`站点地图保存成功${new Date()}`)
+        resolve()
       })
     })
   })
