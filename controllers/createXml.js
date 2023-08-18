@@ -32,9 +32,11 @@ module.exports = (dataList, fileName, url, urlKey) => {
             .ele('priority').txt(0.7).up()
           .up()
         })
+        
+        
+        const folderName = process.env.SITEMAP_FOLDER
         const xml = root.end({ prettyPrint: true })
-        const sitemapFilePath = `./output/${fileName}-${site.site}-${i+1}.xml`
-        const folderName = './output'
+        const sitemapFilePath = `${folderName}/${fileName}-${site.site}-${i+1}.xml`
 
         // 判断文件夹是否存在，不存就创建一个
         if (!fs.existsSync(folderName)) {

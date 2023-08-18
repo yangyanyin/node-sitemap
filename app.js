@@ -1,3 +1,4 @@
+require('dotenv').config()
 const createXml = require('./controllers/createXml')
 const sqlRequest = require('./controllers/sqlRequest')
 
