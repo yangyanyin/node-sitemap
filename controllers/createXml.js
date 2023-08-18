@@ -34,7 +34,7 @@ module.exports = (dataList, fileName, url, urlKey) => {
         })
         
         
-        const folderName = process.env.SITEMAP_FOLDER
+        const folderName = './sitemap'
         const xml = root.end({ prettyPrint: true })
         const sitemapFilePath = `${folderName}/${fileName}-${site.site}-${i+1}.xml`
 
