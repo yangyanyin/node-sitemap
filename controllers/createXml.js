@@ -27,13 +27,19 @@ module.exports = (dataList, fileName, url, urlKey) => {
           const pageUrl = url.replace(/\{([^}]+)\}/g, (match, key) => replacements[key])
           root.ele('url')
             .ele('loc').txt(pageUrl).up()
-            .ele('lastmod').txt('2023-08-09').up()
+            .ele('lastmod').txt(new Date()).up()
             .ele('changefreq').txt('daily').up()
             .ele('priority').txt(0.7).up()
           .up()
         })
         const xml = root.end({ prettyPrint: true })
-        const sitemapFilePath = `./output/${fileName}-${site.site}-${i+1}.xml`;
+        const sitemapFilePath = `./output/${fileName}-${site.site}-${i+1}.xml`
+        const folderName = './output'
+
+        // 判断文件夹是否存在，不存就创建一个
+        if (!fs.existsSync(folderName)) {
+          fs.mkdir(folderName, (err) => {})
+        }
         fs.writeFileSync(sitemapFilePath, xml, 'utf-8')
         resolve()
       })
