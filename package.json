@@ -1,7 +1,9 @@
 {
   "scripts": {
     "serve": "nodemon app.js",
-    "dev": "node app.js"
+    "dev": "node app.js",
+    "push": "git push",
+    "status": "git status"
   },
   "dependencies": {
     "axios": "^1.4.0",
